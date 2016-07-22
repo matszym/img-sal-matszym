@@ -1,0 +1,14 @@
+{
+  "name": "img-sal",
+  "version": "1.0.0",
+  "description": "Image search abstraction layer for free code camp",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mateusz Szymański",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.14.0"
+  }
+}
