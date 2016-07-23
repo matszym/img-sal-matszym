@@ -1,0 +1,35 @@
+'use strict';
+
+let flickrapi = require('flickrapi'),
+config = require('../config/config'),
+Promise = require('bluebird'),
+flickrOptions = {
+  api_key: config.flickrAPI,
+  secret_key: config.flickrSecret
+};
+
+exports.image = query => {
+  let flickr = Promise.promisify(flickrapi.tokenOnly);
+
+  return flickr(flickrOptions)
+  .then(flickr => {
+    let search = Promise.promisify(flickr.photos.search);
+
+    return search({
+      text: query
+    });
+  })
+  .then(result => {    
+    console.log(`response contains ${result.photos.photo.length} photos`);
+    let response = result.photos.photo.map(photo => {
+      return {
+        url: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`,
+        snipet: photo.title,
+        thumbnail: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_t.jpg`
+      }
+    });
+
+    return response;
+  })
+  .catch(err => console.log(err));
+}
