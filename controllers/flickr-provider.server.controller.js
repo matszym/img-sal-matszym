@@ -19,8 +19,7 @@ exports.image = query => {
       text: query
     });
   })
-  .then(result => {    
-    console.log(`response contains ${result.photos.photo.length} photos`);
+  .then(result => {
     let response = result.photos.photo.map(photo => {
       return {
         url: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`,
