@@ -16,7 +16,9 @@ exports.image = query => {
     let search = Promise.promisify(flickr.photos.search);
 
     return search({
-      text: query
+      text: query.text,
+      page: query.offset || 1,
+      per_page: 10
     });
   })
   .then(result => {
